@@ -7,18 +7,15 @@ const PostJob = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
 
-  // State to hold all form inputs
   const [formData, setFormData] = useState({
     title: "",
     companyName: "",
     location: "",
     salary: "",
-    jobType: "Full-Time (On-Site)", // Default value matching your backend Schema EXACTLY
-    description: "",
+    jobType: "Full-Time (On-Site)", 
     qualifications: "",
   });
 
-  // Universal change handler for inputs
   const handleChange = (e) => {
     setFormData({
       ...formData,
@@ -30,7 +27,6 @@ const PostJob = () => {
     e.preventDefault();
     setLoading(true);
     try {
-      // Convert salary to a Number before sending
       const payload = {
         ...formData,
         salary: Number(formData.salary),
@@ -38,7 +34,7 @@ const PostJob = () => {
 
       await createJobPosting(payload);
       toast.success("Job posted successfully!");
-      navigate("/"); // Redirect to home page after posting
+      navigate("/");
     } catch (error) {
       console.error(error);
       toast.error(error.response?.data?.message || "Failed to post job.");
